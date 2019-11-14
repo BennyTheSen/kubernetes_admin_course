@@ -1,0 +1,16 @@
+Deploy a pod named nginx-pod using the nginx:alpine image.
+   kubectl run --generator=run-pod/v1 nginx-pod --image=nginx:alpine
+
+Deploy a redis pod using the redis:alpine image with the labels set to tier=db.
+   kubectl run --generator=run-pod/v1 redis --image=redis:alpine -l tier=db
+
+Create a service redis-service to expose the redis application within the cluster on port 6379.
+   kubectl expose pod redis --port=6379 --name redis-service --selector tier=db
+
+Create a deployment named webapp using the image kodekloud/webapp-color with 3 replicas
+   kubectl run --generator=deployment/v1beta1 webapp --image=kodekloud/webapp-color  --replicas=3
+
+Expose the webapp as service webapp-service application on port 30082 on the nodes on the cluster
+   kubectl expose deployment webapp --type=NodePort --name webapp-service --port=8080 --dry-run -o yaml >webapp-service.yaml
+   add nodePort: 30082
+   kubectl apply -f webapp-service.yaml

@@ -1,0 +1,36 @@
+How many PODs exist on the system?
+   kubectl get pods --> 0
+
+How many ReplicaSets exist on the system?
+   kubectl get replicasets --> 0
+
+How many Deployments exist on the system?
+   kubectl get deployments --> 0
+
+How many Deployments exist on the system?
+   kubectl get deployments --> 1
+
+How many ReplicaSets exist on the system now?
+   kubectl get replicasets --> 1
+
+How many PODs exist on the system now?
+   kubectl get pods --> 4
+
+Out of all the existing PODs, how many are ready?
+   kubectl get pods --> 0
+
+What is the image used to create the pods in the new deployment?
+   kubectl get deployments -o wide --> busybox888
+
+Why do you think the deployment is not ready?
+   Why do you think the deployment is not ready? --> imagepullerror
+
+Create a new Deployment using the 'deployment-definition-1.yaml' file located at /root/
+There is an issue with the file, so try to fix it.
+   see file in directory
+   kubectl create -f deployment-definition-1.yaml
+
+Create a new Deployment with the below attributes using your own deployment definition file
+Name: httpd-frontend; Replicas: 3; Image: httpd:2.4-alpine
+   see file in directory
+   kubectl create -f deployment-definition.yaml

@@ -1,0 +1,19 @@
+How many Namespaces exist on the system?
+   kubectl get namespaces --> 9
+
+How many pods exist in the 'research' namespace?
+   kubectl get pods --namespace=research -->2
+
+Create a POD in the 'finance' namespace.
+   kubectl run --generator=run-pod/v1 redis --image=redis --namespace=finance
+
+Which namespace has the 'blue' pod in it?
+   kubectl get pods --all-namespaces --> marketing
+
+Access the Blue web application using the link above your terminal
+
+What DNS name should the Blue application use to access the database 'db-service' in its own namespace - 'marketing'.
+   db-service
+
+What DNS name should the Blue application use to access the database 'db-service' in the 'dev' namespace
+   db-service.dev.svc.cluster.local

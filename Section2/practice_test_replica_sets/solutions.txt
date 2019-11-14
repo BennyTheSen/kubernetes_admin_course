@@ -1,0 +1,54 @@
+How many PODs exist on the system?
+   kubectl get pods --> 0
+
+How many ReplicaSets exist on the system?
+   kubectl get replicaset --> 0
+
+How about now? How many ReplicaSets do you see?
+   kubectl get replicaset --> 1
+
+How many PODs are DESIRED in the new-replica-set?
+   kubectl get replicaset --> 4
+
+What is the image used to create the pods in the new-replica-set?
+   kubectl get replicaset -o wide --> busybox777
+
+How many PODs are READY in the new-replica-set?
+   kubectl get replicaset -o wide --> 0
+
+Why do you think the PODs are not ready?
+   kubectl get pods --> ErrImagePull
+
+Delete any one of the 4 PODs
+   kubectl delete pods --all
+
+How many PODs exist now?
+   kubectl get pods --> 4
+
+Why are there still 4 PODs, even after you deleted one?
+   replicaset ensures that desired number runs
+
+Create a ReplicaSet using the 'replicaset-definition-1.yaml' file located at /root/
+There is an issue with the file, so fix it.
+   see file in folder
+   kubectl create -f replicaset-definition-1.yaml
+
+Fix the issue in the replicaset-definition-2.yaml file and create a ReplicaSet using it.
+This file is located at /root/
+   see file in folder
+   kubectl create -f replicaset-definition-2.yaml
+
+Delete the two newly created ReplicaSets - replicaset-1 and replicaset-2
+   kubectl delete replicaset replicaset-1
+   kubectl delete replicaset replicaset-2
+
+Fix the original replica set 'new-replica-set' to use the correct 'busybox' image
+Either delete and re-create the ReplicaSet or Update the existing ReplicSet and then delete all PODs, so new ones with the correct image will be created.
+   kubectl edit replicaset new-replica-set
+   kubectl delete pods --all
+
+Scale the ReplicaSet to 5 PODs
+   kubectl scale replicaset new-replica-set --replicas=5
+
+Now scale the ReplicaSet down to 2 PODs
+   kubectl scale replicaset new-replica-set --replicas=2

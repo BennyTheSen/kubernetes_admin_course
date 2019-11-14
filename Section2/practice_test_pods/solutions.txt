@@ -1,0 +1,40 @@
+How many PODs exist on the system? in the current(default) namespace
+•	Kubectl get pods --> 0
+
+Create a new pod with the NGINX image
+•	kubectl run nginx --image=nginx --generator=run-pod/v1
+
+How many pods are created now?
+•	Kubectl get pods --> 4
+
+What is the image used to create the new pods?
+•	Kubectl describe pods --> busybox
+
+Which nodes are these pods placed on?
+•	Kubectl get pods –o wide --> node1
+
+How many containers in POD webapp?
+•	Kubectl describe pod webapp --> 2
+
+What images are used in the new 'webapp' pod?
+•	Kubectl describe pod webapp --> nginx, agentx
+
+What is the state of the container 'agentx' in the pod 'webapp'?
+•	Kubectl describe pod webapp --> error
+
+Why do you think the container 'agentx' in pod 'webapp' is in error?
+•	Kubectl describe pod webapp --> image not on dockerhub
+
+What does the READY column in the output of the 'kubectl get pods' command indicate?
+•	Running containers/total containers
+
+Delete the 'webapp' Pod.
+•	Kubectl delete pod webapp
+
+Create a new pod with the name 'redis' and with the image 'redis123'
+•	Kubectl create –f redis-pod-definition.yml
+	   See file in folder
+
+Now fix the image on the pod to 'redis'.
+•	Vi redis-pod-definition.yml --> change image to redis
+•	Kubectl apply –f redis-pod-definition.yml
