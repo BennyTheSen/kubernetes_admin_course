@@ -1,0 +1,34 @@
+How many Nodes exist on the system?
+   kubectl get nodes --> 2
+
+Do any taints exist on node01?
+   kubectl describe node node01 --> none
+
+Create a taint on node01 with key of 'spray', value of 'mortein' and effect of 'NoSchedule'
+   kubectl taint nodes node01 spray=mortein:NoSchedule
+
+Create a new pod with the NGINX image, and Pod name as 'mosquito'
+   kubectl run --generator=run-pod/v1 mosquito --image=nginx
+
+What is the state of the POD?
+   kubectl get pods --> pending
+
+Why do you think the pod is in a pending state?
+   cannot tolerate taint
+
+Create another pod named 'bee' with the NGINX image, which has a toleration set to the taint Mortein
+   kubectl run --generator=run-pod/v1 bee --image=nginx --dry-run -o yaml > bee-definition.yaml
+   see file in directory
+   kubectl create -f bee-definition.yaml
+
+Do you see any taints on master node?
+   kubectl describe node master --> NoSchedule
+
+Remove the taint on master, which currently has the taint effect of NoSchedule
+   kubectl taint nodes master node-role.kubernetes.io/master:NoSchedule-
+
+What is the state of the pod 'mosquito' now?
+   kubectl get pods --> Running
+
+Which node is the POD 'mosquito' on now?
+   kubectl get pods -o wide --> master

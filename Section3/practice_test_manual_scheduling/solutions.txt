@@ -1,0 +1,20 @@
+A pod definition file nginx.yaml is given. Create a pod using the file.
+   kubectl create -f nginx.yaml
+
+What is the status of the created POD?
+   kubectl get pod nginx -o wide --> Pending
+
+Why is the POD in a pending state?
+   kubectl get nodes
+   kubectl describe pods
+   kubectl get pods --namespace kube-system --> no scheduler
+
+Manually schedule the pod on node01
+   vi nginx.yaml --> add nodeName: node01
+   kubectl delete pod nginx
+   kubectl create -f nginx.yaml
+
+Now schedule the same pod on the master node.
+   vi nginx.yaml --> change nodeName: master
+   kubectl delete pod nginx
+   kubectl create -f nginx.yaml

@@ -1,0 +1,15 @@
+What is the name of the POD that deploys the default kubernetes scheduler in this environment?
+   kubectl get pods --all-namespaces -o wide --> kube-scheduler-master
+
+What is the image used to deploy the kubernetes scheduler?
+   kubectl describe pods --all-namespaces --> k8s.gcr.io/kube-scheduler-amd64:v1.11.3
+
+Deploy an additional scheduler to the cluster following the given specification.
+   file in directory (cat /etc/kubernetes/manifests/kube-scheduler.yaml)
+   kubectl create -f custom-scheduler
+
+A POD definition file is given. Use it to create a POD with the new custom scheduler.
+   vi /root/nginx-pod.yaml --> add schedulerName: my-scheduler under spec
+   kubectl create -f /root/nginx-pod.yaml
+
+

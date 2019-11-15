@@ -1,0 +1,30 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    run: red
+  name: red
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      run: red
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        run: red
+    spec:
+      containers:
+      - image: nginx
+        name: red
+        resources: {}
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                - key: node-role.kubernetes.io/master
+                  operator: Exists

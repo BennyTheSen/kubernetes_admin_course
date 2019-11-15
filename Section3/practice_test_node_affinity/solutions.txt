@@ -1,0 +1,27 @@
+How many Labels exist on node node01?
+   kubectl describe nodes node01 --> 3
+
+What is the value set to the label beta.kubernetes.io/arch on node01?
+   kubectl describe nodes node01 --> amd64
+
+Apply a label color=blue to node node01
+   kubectl label nodes node01 color=blue
+
+Create a new deployment named 'blue' with the NGINX image and 6 replicas
+   kubectl run --generator=deployment/v1beta1 blue --image=nginx --replicas=6 --dry-run -o yaml > deployment-definition.yaml
+   kubectl create -f deployment-definition.yaml
+
+Which nodes are the PODs placed on?
+   kubectl get pods -o wide -> master and node01
+
+Set Node Affinity to the deployment to place the PODs on node01 only
+   see file in directory
+   kubectl apply -f deployment-definition.yaml
+
+Which nodes are the PODs placed on now?
+   kubectl get pods -o wide -> node01
+
+Create a new deployment named 'red' with the NGINX image and 3 replicas, and ensure it gets placed on the master node only.
+   kubectl run --generator=deployment/v1beta1 red --image=nginx --replicas=3 --dry-run -o yaml > red-deployment-definition.yaml
+   see file in directory
+   kubectl create -f red-deployment-definition.yaml

@@ -1,0 +1,20 @@
+How many DaemonSets are created in the cluster in all namespaces?
+   kubectl get daemonsets --all-namespaces --> 2
+
+Which namespace are the DaemonSets created in?
+   kubectl get daemonsets --all-namespaces --> kube-system
+
+Which of the below is a DaemonSet?
+   kubectl get daemonsets --all-namespaces --> weave-net
+
+On how many nodes are the pods scheduled by the DaemonSet kube-proxy
+   kubectl get daemonsets --all-namespaces --> 2
+
+What is the image used by the POD deployed by the weave-net DaemonSet?
+   kubectl get daemonsets --all-namespaces -o wide --> weaveworks/weave-kube:2.2.1,weaveworks/weave-npc:2.2.1
+
+Deploy a DaemonSet for FluentD Logging.
+   see file in dir
+   kubectl create -f daemon-flunet.yaml --namespace=kube-system
+
+

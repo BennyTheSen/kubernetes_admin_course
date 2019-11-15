@@ -1,0 +1,38 @@
+How many static pods exist in this cluster in all namespaces?
+   kubectl get pods --all-namespaces --> 4
+
+Which of the below components is NOT deployed as a static pod?
+   kubectl get pods --all-namespaces --> coredns
+
+Which of the below components is NOT deployed as a static POD?
+   kubectl get pods --all-namespaces --> kube-proxy
+
+On what nodes are the static pods created?
+   kubectl get pods --all-namespaces -o wide --> master
+
+What is the path of the directory holding the static pod definition files?
+   ps -aux | grep kubelet
+   cat /var/lib/kubelet/config.yaml --> /etc/kubernetes/manifests
+
+How many pod definition files are present in the manifests folder?
+   cd /etc/kubernetes/manifests/
+   ls --> 4
+
+What is the docker image used to deploy the kube-api server as a static pod?
+   cat kube-apiserver.yaml --> k8s.gcr.io/kube-apiserver-amd64:v1.11.3
+
+Create a static pod named static-busybox that uses the busybox image and the command sleep 1000
+   file in directory
+   place it in static pods path
+
+Edit the image on the static pod to use busybox:1.28.4
+   vi static-busybox.yaml --> change image
+   wait until its created
+
+We just created a new static pod named static-greenbox. Find it and delete it.
+   kubectl get pods --all-namespaces -o wide
+   kubectl get nodes -o wide
+   ssh 172.17.0.25
+   ps -aux | grep kubelet
+   cat /var/lib/kubelet/config.yaml
+   rm /etc/just-to-mess-with-you/greenbox.yaml

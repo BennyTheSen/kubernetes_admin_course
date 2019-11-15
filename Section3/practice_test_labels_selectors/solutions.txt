@@ -1,0 +1,15 @@
+We have deployed a number of PODs. They are labelled with 'tier', 'env' and 'bu'. How many PODs exist in the 'dev' environment?
+   kubectl get pods --selector env=dev --> 7
+
+How many PODs are in the 'finance' business unit ('bu')?
+   kubectl get pods --selector bu=finance --> 6
+
+How many objects are in the 'prod' environment including PODs, ReplicaSets and any other objects?
+   kubectl get all --selector env=prod --> 7
+
+Identify the POD which is 'prod', part of 'finance' BU and is a 'frontend' tier?
+   kubectl get pods -l env=prod,bu=finance,tier=frontend --> app-1-zzxdf
+
+A ReplicaSet definition file is given 'replicaset-definition-1.yaml'. Try to create the replicaset. There is an issue with the file. Try to fix it.
+   see file in directory
+   kubectl create -f replicaset-definition-1.yaml
