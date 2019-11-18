@@ -1,0 +1,11 @@
+We have deployed a POD hosting an application. Inspect it. Wait for it to start.
+   kubectl get pods
+
+A user - 'USER5' - has expressed concerns accessing the application. Identify the cause of the issue.
+   kubectl logs webapp-1 --> account locked
+
+We have deployed a new POD - 'webapp-2' - hosting an application. Inspect it. Wait for it to start.
+   kubectl get pods
+
+A user is reporting issues while trying to purchase an item. Identify the user and the cause of the issue.
+   kubectl logs webapp-2 simple-webapp --> item out of stock

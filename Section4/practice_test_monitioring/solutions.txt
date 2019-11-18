@@ -1,0 +1,20 @@
+We have deployed a few PODs running workloads. Inspect it.
+   kubectl get podss
+
+Let us deploy metrics-server to monitor the PODs and Nodes. Pull the git repository for the deployment files.
+   git clone https://github.com/kodekloudhub/kubernetes-metrics-server.git
+
+Deploy the metrics-server by creating all the components downloaded.
+   kubectl create -f kubernetes-metrics-server/
+
+Identify the node that consumes the most CPU.
+   kubectl top node --> node01
+
+Identify the node that consumes the most Memory.
+   kubectl top node --> master
+
+Identify the POD that consumes the most Memory.
+   kubectl top pod --> elephant
+
+Identify the POD that consumes the most CPU.
+   kubectl top pod --> lion
