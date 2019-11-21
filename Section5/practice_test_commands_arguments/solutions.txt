@@ -1,0 +1,36 @@
+How many PODs exist on the system?
+   kubectl get pods --> 1
+
+What is the command used to run the pod 'ubuntu-sleeper'?
+   kubectl describe pods ubuntu-sleeper --> sleep 4800
+
+Create a pod with the ubuntu image to run a container to sleep for 5000 seconds. Modify the file ubuntu-sleeper-2.yaml.
+   see file in directory
+   kubectl create -f ubuntu-sleeper-2.yaml
+
+Create a pod using the file named 'ubuntu-sleeper-3.yaml'. There is something wrong with it. Try to fix it!
+   see file in directory
+   kubectl create -f ubuntu-sleeper-3.yaml
+
+Update pod 'ubuntu-sleeper-3' to sleep for 2000 seconds.
+   kubectl edit pod ubuntu-sleeper-3 --> edit the value
+   kubectl delete pod ubuntu-sleeper-3
+   kubectl create -f /tmp/kubectl-edit-xuyya.yaml
+
+Inspect the file 'Dockerfile' given at /root/webapp-color. What command is run at container startup?
+   cat webapp-color/Dockerfile --> python app.py
+
+Inspect the file 'Dockerfile' given at /root/webapp-color. What command is run at container startup?
+   cat webapp-color/Dockerfile2 --> python app.py --color red
+
+Inspect the two files under directory 'webapp-color-2'. What command is run at container startup?
+   cat webapp-color-2/Dockerfile2 --> python app.py
+   cat webapp-color-2/webapp-color-pod.yaml --> --color green
+
+Inspect the two files under directory 'webapp-color-3'. What command is run at container startup?
+   cat webapp-color-3/Dockerfile2 --> python app.py --color red
+   cat webapp-color-3/webapp-color-pod-2.yaml --> python app.py --color pink
+
+Create a pod with the given specifications. By default it displays a 'blue' background. Set the given command line arguments to change it to 'green'
+   see file in directory
+   kubectl create -f webapp-green.yaml

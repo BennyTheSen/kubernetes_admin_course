@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: yellow
+  labels:
+    name: yellow
+spec:
+  containers:
+  - name: lemon
+    image: busybox
+    resources:
+  - name: gold
+    image: redis
+    resources:
+

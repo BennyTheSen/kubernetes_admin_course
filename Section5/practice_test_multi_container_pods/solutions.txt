@@ -1,0 +1,20 @@
+Identify the number of containers running in the 'red' pod.
+   kubectl describe pod red --> 3
+
+Identify the name of the containers running in the 'blue' pod.
+   kubectl describe pod blue --> teal, navy
+
+Create a multi-container pod with 2 containers.
+   see file in directoy
+   kubectl create -f yellow-pod-definition.yaml
+
+Inspect the 'app' pod and identify the number of containers in it.
+   kubectl describe pod app -n elastic-stack
+
+The 'app'lication outputs logs to the file /log/app.log. View the logs and try to identify the user having issues with Login.
+   kubectl exec -it app cat /log/app.log -n elastic-stack --> user5
+
+Edit the pod to add a sidecar container to send logs to ElasticSearch. Mount the log volume to the sidecar container..
+   kubectl edit pod app -n elastic-stack --> add the container
+   kubectl delete pod -n elastic-stack app
+   kubectl create -f /tmp/kubectl-edit-fnvwg.yaml -n elastic-stack

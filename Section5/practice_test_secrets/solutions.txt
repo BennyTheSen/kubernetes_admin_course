@@ -1,0 +1,23 @@
+How many Secrets exist on the system?
+   kubectl get secrets --> 1
+
+How many secrets are defined in the 'default-token' secret?
+   kubectl get secret default-token-5zstf -o yaml --> 3
+
+What is the type of the 'default-token' secret?
+   kubectl describe secrets --> kubernetes.io/service-account-token
+
+Which of the following is not a secret data defined in 'default-token' secret?
+   kubectl get secret default-token-5zstf -o yaml --> type
+
+The reason the application is failed is because we have not created the secrets yet. Create a new Secret named 'db-secret' with the data given(on the right).
+   echo -n 'sql01' | base64
+   echo -n 'root' | base64
+   echo -n 'password123' | base64
+   see file in directory
+   kubectl create -f db-secret.yaml
+
+Configure webapp-pod to load environment variables from the newly created secret.
+   kubectl edit pod webapp-pod --> add envFrom: - secretRef: name: db-secret
+   kubectl delete pod webapp-pod
+   kubectl create -f /tmp/kubectl-edit-8sik4.yaml
