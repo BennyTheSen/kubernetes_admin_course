@@ -1,0 +1,53 @@
+This lab tests your skills on upgrading a kubernetes cluster. We have a production cluster with applications running on it. Let us explore the setup first.
+What is the current version of the cluster?
+   kubectl get nodes --> v1.11.3
+
+How many nodes are part of this cluster?
+   kubectl get nodes --> 2
+
+How many nodes can host workloads in this cluster?
+Inspect the applications
+   kubectl get pods -o wide --> 2
+
+How many applications are hosted on the cluster?
+Count the number of deployments
+   kubectl get deployments --> 1
+
+What nodes are the pods hosted on?
+   kubectl get pods -o wide --> node01, master
+
+You are tasked to upgrade the cluster. User's accessing the applications must not be impacted. And you cannot provision new VMs. What strategy would you use to upgrade the cluster?
+   upgrade one at a time
+
+What is the latest stable version available for upgrade?
+   kubeadm upgrade plan --> v1.16.3
+
+How should you go about upgrading from the current version to the latest stable version?
+   one minor at a time
+
+We will be upgrading the master node first. Drain the master node of workloads and mark it UnSchedulable
+   kubectl drain master --ignore-daemonsets
+
+Upgrade the master components to v1.12.0
+   apt install -y kubeadm=1.12.0-00
+   kubeadm upgrade apply v1.12.0
+   apt install -y kubelet=1.12.0-00
+   systemctl restart kubelet
+
+Mark the master node as "Schedulable" again
+   kubectl uncordon master
+
+Next is the worker node. Drain the worker node of the workloads and mark it UnSchedulable
+   kubectl drain node01 --ignore-daemonsets
+
+Upgrade the worker node to v1.12.0
+   kubectl get nodes -o wide
+   ssh 172.17.0.71
+   apt install -y kubeadm=1.12.0-00
+   apt install -y kubelet=1.12.0-00
+   kubeadm upgrade node config --kubelet-version v1.12.0
+
+Remove the restriction and mark the worker node as schedulable again.
+   exit
+   kubectl uncordon node01
+

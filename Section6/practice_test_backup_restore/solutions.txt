@@ -1,0 +1,38 @@
+We have a working kubernetes cluster with a set of applications running. Let us first explore the setup.
+How many deployments exist in the cluster?
+   kubectl get deployments --> 2
+
+What is the version of ETCD running on the cluster?
+   kubectl describe pod --namespace=kube-system etcd-master --> 3.2.18
+
+At what address do you reach the ETCD cluster from your master node?
+   kubectl describe pod --namespace=kube-system etcd-master --> https://127.0.0.1:2379
+
+Where is the ETCD server certificate file located?
+   kubectl describe pod --namespace=kube-system etcd-master --> /etc/kubernetes/pki/etcd/server.crt
+
+Where is the ETCD CA Certificate file located?
+   kubectl describe pod --namespace=kube-system etcd-master --> /etc/kubernetes/pki/etcd/ca.crt
+
+The master nodes in our cluster are planned for a regular maintenance reboot tonight. While we do not anticipate anything to go wrong, we are required to take the necessary backups. Take a snapshot of the ETCD database using the built-in snapshot functionality.
+Store the backup file at location /tmp/snapshot-pre-boot.db
+   ETCDCTL_API=3 etcdctl --endpoints=https://[127.0.0.1]:2379 --cacert=/etc/kubernetes/pki/etcd/ca.crt \
+     --cert=/etc/kubernetes/pki/etcd/server.crt --key=/etc/kubernetes/pki/etcd/server.key \
+     snapshot save /tmp/snapshot-pre-boot.db
+
+Wake up! We have a conference call! After the reboot the master nodes came back online, but none of our applications are accessible. Check the status of the applications on the cluster. What's wrong?
+   kubectl get deployments -o wide --> no deployments
+   kubectl get services -o wide --> no services
+   kubectl get pods -o wide --> no pods
+
+Luckily we took a backup. Restore the original state of the cluster using the backup file.
+   ETCDCTL_API=3 etcdctl --endpoints=https://[127.0.0.1]:2379 --cacert=/etc/kubernetes/pki/etcd/ca.crt \
+     --name=master \
+     --cert=/etc/kubernetes/pki/etcd/server.crt --key=/etc/kubernetes/pki/etcd/server.key \
+     --data-dir /var/lib/etcd-from-backup \
+     --initial-cluster=master=https://127.0.0.1:2380 \
+     --initial-cluster-token etcd-cluster-1 \
+     --initial-advertise-peer-urls=https://127.0.0.1:2380 \
+     snapshot restore /tmp/snapshot-pre-boot.db
+
+   nano /etc/kubernetes/manifests/etcd.yaml --> edit data-dir, initial-cluster-token and volume mounts

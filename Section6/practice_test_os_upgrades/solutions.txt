@@ -1,0 +1,42 @@
+Let us explore the environment first. How many nodes do you see in the cluster?
+   kubectl get nodes --> 4
+
+How many applications do you see hosted on the cluster?
+   kubectl get deployments --> 2
+
+On which nodes are the applications hosted on?
+   kubectl get pods -o wide --> node01, node02, node03
+
+We need to take node01 out for maintenance. Empty the node of all applications and mark it unschedulable.
+   kubectl drain node01 --ignore-daemonsets
+
+What nodes are the apps on now?
+   kubectl get pods -o wide --> node02, node03
+
+The maintenance tasks have been completed. Configure the node to be schedulable again.
+   kubectl uncordon node01
+
+How many pods are scheduled on node01 now?
+   kubectl get pods -o wide --> 0
+
+Why are there no pods on node01?
+   only new pods will be scheduled there#
+
+Why are there no pods placed on the master node?
+   because of taint
+
+It is now time to take down node02 for maintenance. Before you remove all workload from node02 answer the following question.
+Can you drain node02 using the same command as node01? Try it.
+   --> No because node not part of replicaset
+
+What is the name of the POD not part of a replicaset hosted on node02?
+   --> hr-app
+
+What would happen to hr-app if node02 is drained forcefully?
+   will be lost forever
+
+Drain node02 and mark it unschedulable
+   kubectl drain node02 --ignore-daemonsets --force
+
+Node03 has our critical applications. We do not want to schedule any more apps on node03. Mark node03 as unschedulable but do not remove any apps currently running on it .
+   kubectl cordon node03
