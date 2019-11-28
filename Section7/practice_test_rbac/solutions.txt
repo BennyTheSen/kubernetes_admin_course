@@ -1,0 +1,43 @@
+Inspect the environment and identify the authorization modes configured on the cluster.
+Check the kube-api server settings
+   kubectl describe pod kube-apiserver-master -n kube-system --> Node, RBAC
+
+How many roles exist in the default namespace?
+   kubectl get roles --> 0
+
+How many roles exist in all namespaces together?
+   kubectl get roles --all-namespaces --> 11
+
+What are the resources the weave-net role in the kube-system namespce is given access to?
+   kubectl describe role -n kube-system weave-net --> configmaps
+
+What actions can the weave-net role perform on configmaps
+   kubectl describe role -n kube-system weave-net --> create
+
+Which of the following statements are true?
+   can only view and update configmaps named weave-net
+
+Which account is the weave-net role assigned to it?
+   kubectl describe rolebinding weave-net -n kube-system --> ServiceAccount  weave-net
+
+A user dev-user is created. User's details have been added to the kubeconfig file. Inspect the permissions granted to the user. Check if the user can list pods in the default namespace.
+Use the --as dev-user option with kubectl to run commands as the dev-user
+   kubectl auth can-i get pods --as dev-user --> no
+
+Create the necessary roles and role bindings required for the dev-user to create, list and delete pods in the default namespace.
+   see files in directory
+   kubectl create -f dev-user-role.yaml
+   kubectl create -f dev-user-rolebinding.yaml
+
+The dev-user is trying to get details about the dark-blue-app pod in the blue namespace. Investigate and fix the issue.
+We have created the required roles and rolebindings, but something seems to be wrong.
+   kubectl auth can-i get pods --as dev-user -n blue --> no
+   kubectl describe roles -n blue --> wrong resource name
+   kubectl edit role -n blue developer --> change resource to dark-blue-app
+
+Grant the dev-user permissions to create deployments in the blue namespace.
+Remember to add both groups "apps" and "extensions"
+   kubectl edit role developer  --> add apiGroups and resource
+   kubectl edit rolebinding dev-user-binding --> add namespace
+   kubectl delete role developer
+   kubectl delete rolebinding dev-user-binding

@@ -1,0 +1,27 @@
+How many network policies do you see in the environment?
+We have deployed few web applications, services and network policies. Inspect the environment.
+   kubectl get networkpolicies --> 1
+
+What is the name of the Network Policy?
+   kubectl get networkpolicies --> payroll-policy
+
+Which pod is the Network Policy applied on?
+   kubectl get networkpolicies -o wide --> payroll
+
+What type of traffic is this Network Policy configured to handle?
+   kubectl describe networkpolicies --> Ingress
+
+What is the impact of the rule configured on this Network Policy?
+   --> traffic from internal allowed
+   --> internal pod can access on port 8080
+
+Perform a connectivity test using the User Interface in these Applications to access the 'payroll-service' at port '8080'.
+   --> only internal can acces
+
+Perform a connectivity test using the User Interface of the Internal Application to access the 'external-service' at port '8080'.
+   --> success
+
+Create a network policy to allow traffic from the 'Internal' application only to the 'payroll-service' and 'db-service'
+Use the spec given on the right. You might want to enable ingress traffic to the pod to test your rules in the UI.
+   see file in dir
+   kubectl create -f network-policy.yaml

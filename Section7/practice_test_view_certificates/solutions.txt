@@ -1,0 +1,48 @@
+Identify the certificate file used for the kube-api server
+   cat /etc/kubernetes/manifests/kube-apiserver.yaml --> /etc/kubernetes/pki/apiserver.crt
+
+Identify the Certificate file used to authenticate kube-apiserver as a client to ETCD Server
+   cat /etc/kubernetes/manifests/kube-apiserver.yaml --> /etc/kubernetes/pki/apiserver-etcd-client.crt
+
+Identify the key used to authenticate kubeapi-server to the kubelet server
+   cat /etc/kubernetes/manifests/kube-apiserver.yaml --> /etc/kubernetes/pki/apiserver-kubelet-client.key
+
+Identify the ETCD Server Certificate used to host ETCD server
+   cat /etc/kubernetes/manifests/etcd.yaml --> /etc/kubernetes/pki/etcd/server.crt
+
+Identify the ETCD Server CA Root Certificate used to serve ETCD Server
+   cat /etc/kubernetes/manifests/etcd.yaml --> /etc/kubernetes/pki/etcd/ca.crt
+
+What is the Common Name (CN) configured on the Kube API Server Certificate?
+   openssl x509 -in /etc/kubernetes/pki/apiserver.crt -text --> kube-apiserver
+
+What is the name of the CA who issued the Kube API Server Certificate?
+   openssl x509 -in /etc/kubernetes/pki/apiserver.crt -text --> CN=kubernetes
+
+Which of the below alternate names is not configured on the Kube API Server Certificate?
+   openssl x509 -in /etc/kubernetes/pki/apiserver.crt -text --> kube-master
+
+What is the Common Name (CN) configured on the ETCD Server certificate?
+   openssl x509 -in /etc/kubernetes/pki/etcd/server.crt -text --> master
+
+How long, from the issued date, is the Kube-API Server Certificate valid for?
+   openssl x509 -in /etc/kubernetes/pki/apiserver.crt -text --> 1 year
+
+How long, from the issued date, is the Root CA Certificate valid for?
+   openssl x509 -in /etc/kubernetes/pki/apiserver.crt -text --> 10 years
+
+Kubectl suddenly stops responding to your commands. Check it out! Someone recently modified the /etc/kubernetes/manifests/etcd.yaml file
+You are asked to investigate and fix the issue. Once you fix the issue wait for sometime for kubectl to respond. Check the logs of the ETCD container.
+   vi /etc/kubernetes/manifests/etcd.yaml --> change --cert-file to /etc/kubernetes/pki/etcd/server.crt
+
+The kube-api server stopped again! Check it out. Inspect the kube-api server logs and identify the root cause and fix the issue.
+Run docker ps -a command to identify the kube-api server container. Run docker logs container-id command to view the logs.
+   docker ps -a --> find container id
+   docker logs f6ac38060f5d --> Unable to create storage backend ...
+   nano /etc/kubernetes/manifests/kube-apiserver.yaml --> change etcd-ca-file to /etc/kubernetes/pki/etcd/ca.crt
+
+The kube-api server stops responding one day when it tries to connect to ETCD server.
+Inspect and fix the issue. If the certificate is expired, sign a new certificate by the CA and configure it to be used by the kube-api server
+   docker ps -a
+   docker logs 6794fa835e27
+   openssl x509 -req -in /etc/kubernetes/pki/apiserver-etcd-client.csr -CA /etc/kubernetes/pki/etcd/ca.crt -CAkey /etc/kubernetes/pki/etcd/ca.key -CAcreateserial -out /etc/kubernetes/pki/ap

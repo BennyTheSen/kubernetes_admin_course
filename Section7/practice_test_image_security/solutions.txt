@@ -1,0 +1,15 @@
+We have an application running on our cluster. Let us explore it first. What image is the application using?
+   kubectl describe pods --> nginx:alpine
+
+We decided to use a modified version of the application from an internal private registry. Update the image of the deployment to use a new image from myprivateregistry.com:5000
+The registry is located at myprivateregistry.com:5000. Don't worry about the credentials for now. We will configure them in the upcoming steps.
+   kubectl edit deployment web --> change image to myprivateregistry.com:5000/nginx:alpine
+
+Are the new PODs created with the new images successfully running?
+   kubectl get pods -o wide --> now.
+
+Create a secret object with the credentials required to access the registry
+   kubectl create secret docker-registry private-reg-cred --docker-server=myprivateregistry.com:5000 --docker-username=dock_user --docker-password=dock_password --docker-email=dock_user@myprivateregistry.com
+
+Configure the deployment to use credentials from the new secret to pull images from the private registry
+   kubectl edit deployment web --> add imagePullSecrets: -name: private-reg-cred

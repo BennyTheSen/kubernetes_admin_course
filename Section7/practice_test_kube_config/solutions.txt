@@ -1,0 +1,46 @@
+Where is the default kubeconfig file located in the current environment?
+Find the current home directory by looking at the HOME environment variable
+   printenv --> root
+   ls -lisa --> root/.kube/config
+
+How many clusters are defined in the default kubeconfig file?
+   kubectl config view --> 1
+
+How many users are defined in the default kubeconfig file?
+   kubectl config view --> 1
+
+How many contexts are defined in the default kubeconfig file?
+   kubectl config view --> 1
+
+What is the user configured in the current context?
+   kubectl config view --> kubernetes-admin
+
+What is the name of the cluster configured in the default kubeconfig file?
+   kubectl config view --> kubernetes
+
+A new kubeconfig file named 'my-kube-config' is created. It is placed in the /root directory. How many clusters are defined in the kubectl file?
+   cat /root/my-kube-config --> 4
+
+How many contexts are configured in the 'my-kube-config' file?
+   cat /root/my-kube-config --> 4
+
+What user is configured in the 'research' context?
+   cat /root/my-kube-config --> dev-user
+
+What is the name of the client-certificate file configured for the 'aws-user'?
+   cat /root/my-kube-config --> aws-user.crt
+
+What is the current context set to in the 'my-kube-config' file?
+   cat /root/my-kube-config --> test-user@development
+
+I would like to use the dev-user to access test-cluster-1. Set the current context to the right one so I can do that.
+Once the right context is identified, use the 'kubectl config use-context' command.
+   kubectl config --kubeconfig=/root/my-kube-config use-context research
+
+We don't want to have to specify the kubeconfig file option on each command. Make the my-kube-config file the default kubeconfig.
+   cat /root/my-kube-config > /root/.kube/config
+
+With the current-context set to research, we are trying to access the cluster. However something seems to be wrong. Identify and fix the issue.
+Try running the kubectl get pods command and look for the error. All users certificates are stored at /etc/kubernetes/pki/users
+   unable to read client-cert /etc/kubernetes/pki/users/dev-user/developer-user.crt for dev-user due to open /etc/kubernetes/pki/users/dev-user/developer-user.crt: no such file or directory
+   nano /root/.kube/config --> change */development-user.crt to */dev-user.crt

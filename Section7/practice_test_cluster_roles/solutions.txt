@@ -1,0 +1,28 @@
+How many ClusterRoles do you see defined in the cluster?
+   kubectl get clusterroles | wc -l --> 55
+
+How many ClusterRoleBindings exist on the cluster?
+   kubectl get clusterrolebindings | wc -l --> 43
+
+What namespace is the cluster-admin clusterrole part of?
+   not part of a namespace
+
+What user/groups are the cluster-admin role bound to?
+The ClusterRoleBinding for the role is with the same name.
+   kubectl describe clusterrolebinding cluster-admin --> system:masters
+
+What level of permission does the cluster-admin role grant?
+Inspect the cluster-admin role's privileges
+   kubectl describe clusterrole cluster-admin --> any permissions
+
+A new user michelle joined the team. She will be focusing on the nodes in the cluster. Create the required ClusterRoles and ClusterRoleBindings so she gets access to the nodes.
+The kubeconfig file has been configured with her credentials.
+   see files in directory
+   kubectl create -f m-cluster-role.yaml
+   kubectl create -f m-cluster-rolebinding.yaml
+
+michelle's responsibilities are growing and now she will be responsible for storage as well. Create the required ClusterRoles and ClusterRoleBindings to allow her access to Storage.
+Get the API groups and resource names from command kubectl api-resources. Use the given spec.
+   kubectl api-resources
+   kubectl create -f m-cluster-role2.yaml
+   kubectl create -f m-cluster-rolebinding2.yaml

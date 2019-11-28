@@ -1,0 +1,31 @@
+What is the user used to execute the sleep process within the 'ubuntu-sleeper' pod?
+   kubectl describe pod ubuntu-sleeper --> root
+
+Edit the pod 'ubuntu-sleeper' to run the sleep process with user ID 1010.
+Note: Only make the necessary changes. Do not modify the name or image of the pod.
+   kubectl edit pod ubuntu-sleeper --> add securityContext: runAsUser: 1010
+   kubectl delete pod ubuntu-sleeper
+   kubectl create -f /tmp/kubectl-edit-33r9u.yaml
+
+A Pod definition file named 'multi-pod.yaml' is given. With what user are the processes in the 'web' container started?
+The pod is created with multiple containers and security contexts defined at the POD and Container level
+   cat multi-pod.yaml --> 1002
+
+
+With what user are the processes in the 'sidecar' container started?
+The pod is created with multiple containers and security contexts defined at the POD and Container level
+   cat multi-pod.yaml --> 1001
+
+Try to run the below command in the pod 'ubuntu-sleeper' to set the date. Are you allowed to set date on the POD?
+date -s '19 APR 2012 11:14:00'
+   kubectl exec -it ubuntu-sleeper -- date -s '19 APR 2012 11:14:00' --> no
+
+Update pod 'ubuntu-sleeper' to run as Root user and with the 'SYS_TIME' capability.
+Note: Only make the necessary changes. Do not modify the name of the pod.
+   kubectl edit pod ubuntu-sleeper --> Remove runasuser and add capabilities: add: ["SYS_TIME"]
+   kubectl delete pod ubuntu-sleeper
+   kubectl create -f /tmp/kubectl-edit-bjs9f.yaml
+
+Now try to run the below command in the pod to set the date. If the security capability was added correctly, it should work. If it doesn't make sure you changed the user back to root.
+date -s '19 APR 2012 11:14:00'
+   kubectl exec -it ubuntu-sleeper -- date -s '19 APR 2012 11:14:00'
