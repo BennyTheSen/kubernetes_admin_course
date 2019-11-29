@@ -1,0 +1,67 @@
+We have deployed a POD. Inspect the POD and wait for it to start running.
+   kubectl get pods
+
+The application stores logs at location /log/app.log. View the logs.
+   cat /log/app.log
+
+If the POD was to get deleted now, would you be able to view these logs.
+   no
+
+Configure a volume to store these logs at /var/log/webapp on the host
+Use the spec given on the right.
+   kubectl edit pod webapp --> add volume and the mount path
+   kubectl delete pod webapp
+   kubectl create -f /tmp/kubectl-edit-t356k.yaml
+
+Create a 'Persistent Volume' with the given specification.
+   see file in dir
+   kubectl create -f pers-volume.yaml
+
+Let us claim some of that storage for our application. Create a 'Persistent Volume Claim' with the given specification.
+   see file in dir
+   kubectl create -f pers-volume-claim.yaml
+
+What is the state of the Persistent Volume Claim?
+   kubectl get persistentvolumeclaims --> pending
+
+What is the state of the Persistent Volume Claim?
+   kubectl get persistentvolumes --> available
+
+Why is the Claim not bound to the available Persistent Volume?
+   access mode mismatch
+
+Update the Access Mode on the claim to bind it to the PVC.
+Delete and recreate the claim-log-1
+   kubectl edit persistentvolumeclaim claim-log-1 --> change to read write many and delete status
+   kubectl delete persistentvolumeclaim claim-log-1
+   kubectl create -f /tmp/kubectl-edit-bqk83.yaml
+
+You requested for 50Mi, how much capacity is now available to the PVC?
+   100Mi
+
+Update the webapp pod to use the persistent volume claim as its storage.
+Replace hostPath configured earlier with the newly created PersistentVolumeClaim
+   kubectl edit pod webapp --> change volume to persistentVolumeClaim: claimName: claim-log-1
+   delete and recreate pod
+
+What is the Reclaim Policy set on the Persistent Volume - 'pv-log'
+   kubectl describe persistentvolumes --> Retain
+
+What would happen to the PV if the PVC was destroyed?
+   not deleted bbut not available
+
+Try deleting the PVC and notice what happens.
+   kubectl delete persistentvolumeclaim claim-log-1 --> stuck
+
+Why is the PVC stuck in 'Terminating' state?
+   is being used by a pod
+
+Let us now delete the 'webapp' Pod.
+Once deleted, wait for the pod to fully terminate.
+   kubectl delete pod webapp
+
+What is the state of the PVC now?
+   kubectl get persistentvolumeclaims --> deleted
+
+What is the state of the PV now?
+   kubectl get persistentvolumes --> released
