@@ -1,0 +1,21 @@
+How many Nodes are part of this cluster?
+   kubectl get nodes --> 4
+
+What is the Networking Solution used by this cluster?
+   cat /etc/cni/net.d/10-weave.conf --> weave-net
+
+How many weave agents/peers are deployed in this cluster?
+   kubectl get pods -n kube-system --> 4
+
+On which nodes are the weave peers present?
+   kubectl get pods -n kube-system  -o wide --> all nodes
+
+Identify the name of the bridge network/interface created by weave on each node
+   ip link --> weave:
+
+What is the POD IP address range configured by weave?
+   ip addr show weave --> 10.40.X.X
+
+What is the default gateway configured on the PODs scheduled on node03?
+   kubectl run --generator=run-pod/v1 nginx --image=nginx
+   ip route --> 10.32.0.1

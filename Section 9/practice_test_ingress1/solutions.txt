@@ -1,0 +1,62 @@
+Which namespace is the Ingress Controller deployed in?
+   kubectl get pods --all-namespaces --> ingress-space
+
+What is the name of the Ingress Controller Deployment?
+   kubectl get deployments --all-namespaces --> nginx-ingress-controller
+
+Which namespace are the applications deployed in?
+   kubectl get pods --all-namespaces --> app-space
+
+How many applications are deployed in the app-space namespace?
+Count the number of deployments in this namespace
+   kubectl get pods --all-namespaces --> 3
+
+Which namespace is the Ingress Resource deployed in?
+   kubectl get ingresses --all-namespaces --> app-space
+
+What is the name of the Ingress Resource?
+   kubectl get ingresses --all-namespaces --> ingress-wear-watch
+
+What is the Host configured on the ingress-resource?
+The host entry defines the domain name that users use to reach the application like www.google.com
+   kubectl describe -n app-space ingresses ingress-wear-watch --> * all hosts
+
+What backend is the /wear path on the Ingress configured with?
+   kubectl describe -n app-space ingresses ingress-wear-watch --> wear-service:8080
+
+At what path is the video streaming application made available on the Ingress?
+   kubectl describe -n app-space ingresses ingress-wear-watch --> watch
+
+If the requirement does not match any of the configured paths what service are the requests forwarded to?
+   kubectl describe -n app-space ingresses ingress-wear-watch --> / default-http-backend
+
+Now view the Ingress Service using the tab at the top of the terminal. Which page do you see?
+Click on the tab named 'ingress'
+   --> 404
+
+You are requested to change the URLs at which the applications are made available.
+Make the video application available at /stream.
+   kubectl edit ingresses -n app-space ingress-wear-watch --> change watch to stream
+
+A user is trying to view the /eat URL on the Ingress Service. Which page would he see?
+If not open already, click on the Ingress tab above your terminal, and append /eat to the URL in the browser.
+   --> 404
+
+Due to increased demand, your business decides to take on a new venture. You acquired a food delivery company. Their applications have been migrated over to your cluster.
+Inspect the new deployments in the app-space.
+You are requested to add a new path to your ingress to make the food delivery application available to your customers.
+Make the new application available at /eat.
+   kubectl edit ingresses -n app-space ingress-wear-watch --> add new backend
+
+A new payment service has been introduced. Since it is critical, the new application is deployed in its own namespace.
+Identify the namespace in which the new application is deployed
+   kubectl get pods --all-namespaces --> critical-space
+
+What is the name of the deployment of the new application?
+   kubectl get pods --all-namespaces --> webapp-pay-5b4bdd5bb8-4mnzx
+
+You are requested to make the new application available at /pay.
+Identify and implement the best approach to making this application available on the ingress controller and test to make sure its working. Look into annotations: rewrite-target as well.
+   https://kubernetes.github.io/ingress-nginx/examples/rewrite/
+   see file in dir
+   kubectl create -f pay-ingress.yaml
