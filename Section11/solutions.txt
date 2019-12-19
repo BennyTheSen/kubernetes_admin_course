@@ -1,0 +1,42 @@
+Install the kubeadm package on master and node01
+
+   sudo apt-get update && sudo apt-get install -y apt-transport-https curl
+   curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+   cat <<EOF | sudo tee /etc/apt/sources.list.d/kubernetes.list
+   deb https://apt.kubernetes.io/ kubernetes-xenial main
+   EOF
+   sudo apt-get update
+   sudo apt-get install -y kubelet kubeadm kubectl
+   sudo apt-mark hold kubelet kubeadm kubectl
+
+   ssh node01
+   sudo apt-get update && sudo apt-get install -y apt-transport-https curl
+   curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+   cat <<EOF | sudo tee /etc/apt/sources.list.d/kubernetes.list
+   deb https://apt.kubernetes.io/ kubernetes-xenial main
+   EOF
+   sudo apt-get update
+   sudo apt-get install -y kubelet kubeadm kubectl
+   sudo apt-mark hold kubelet kubeadm kubectl
+
+What is the version of kubelet installed?
+   kubelet --version
+
+How many nodes are part of kubernetes cluster currently?
+   kubectl get nodes --> 0
+
+Initialize Control Plane Node (Master Node)
+Once done, set up the default kubeconfig file and wait for node to be part of the cluster.
+   kubeadm init
+   mkdir -p $HOME/.kube
+   sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+   sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+Join node01 to the cluster using the join token
+   ssh node01
+   kubeadm join 172.17.0.39:6443 --token 53wlkl.vpue3c7tgqhqsfjk \
+    --discovery-token-ca-cert-hash sha256:ffbed473fcb0bbc4a15179a93ccdbe2245daf2d71d1850f049b5dd143d3bb8f3
+
+Install a Network Plugin. As a default, we will go with weave
+   sysctl net.bridge.bridge-nf-call-iptables=1
+   kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
