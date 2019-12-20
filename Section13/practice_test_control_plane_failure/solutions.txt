@@ -1,0 +1,23 @@
+The cluster is broken again. We tried deploying an application but it's not working. Troubleshoot and fix the issue.
+Start looking at the deployments.
+   kubectl get deployments -> not running
+   kubectl describe deployments app --> unavailable
+   kubectl get nodes --> seems fine
+   kubectl get pods -n kube-system --> sheduler is down
+   kubectl describe pods -n kube-system kube-scheduler-master --> executable file not found in $PATH": unknown
+   nano /etc/kubernetes/manifests/kube-scheduler.yaml --> change command to kube-scheduler
+
+Scale the deployment app to 2 pods.
+   kubectl edit deployments app --> set replicas to 2
+
+Even though the depoyment was scaled to 2, the number of PODs does not seem to increase. Investigate and fix the issue.
+Inspect the component responsible for managing deployments and replicasets.
+   kubectl get pods -n kube-system --> controller manager down
+   kubectl describe pods -n kube-system kube-controller-manager-master
+   nano /etc/kubernetes/manifests/kube-controller-manager.yaml delete the -XXXX
+
+Something is wrong with scaling again. We just tried scaling the deployment to 3 replicas. But it's not happening.
+Investigate and fix the issue
+   kubectl get pods -n kube-system --> controller manager down
+   kubectl describe pods -n kube-system kube-controller-manager-master --> Error: Error response from daemon: Conflict. The container name "/k8s_kube-controller-manager_kube-controller-manager-master_kube-system_21d4e15128213a60fdb50943026256fc_0" is already in use by container "3a69700442dd1b4f828cd02eaa55b31f0fc8c1788ba3888b0173771bc9a76859". You have to remove (or rename) that container to be able to reuse that name.
+   nano /etc/kubernetes/manifests/kube-controller-manager.yaml --> change WRONG-PKI-DIRECTORY to pki

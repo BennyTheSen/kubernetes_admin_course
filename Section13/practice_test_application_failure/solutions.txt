@@ -1,0 +1,57 @@
+Troubleshooting Test 1: A simple 2 tier application is deployed in the alpha namespace. It must display a green web page on success. Click on the app tab at the top of your terminal to view your application. It is currently failed. Troubleshoot and fix the issue.
+Stick to the given architecture. Use the same names and port numbers as given in the below architecture diagram. Feel free to edit, delete or recreate objects as necessary.
+   kubectl get pods -n alpha --> all running
+   kubectl get services -n alpha --> running
+   kubectl logs -n alpha mysql --> seems fine
+   kubectl logs -n alpha webapp-mysql-5f5df6f797-jnvdb --> code 400, message Bad request version
+   kubectl describe pod -n alpha webapp-mysql-5f5df6f797-jnvdb --> seems fine
+   kubectl describe services -n alpha web-service --> wrong name ?
+   kubectl edit services -n alpha web-service --> change name to mysql service
+   kubectl delete service -n alpha web-service
+   kubectl create -f /tmp/kubectl-edit-gsa7w.yaml
+
+Troubleshooting Test 2: The same 2 tier application is deployed in the beta namespace. It must display a green web page on success. Click on the app tab at the top of your terminal to view your application. It is currently failed. Troubleshoot and fix the issue.
+Stick to the given architecture. Use the same names and port numbers as given in the below architecture diagram. Feel free to edit, delete or recreate objects as necessary.
+   kubectl get pods -n beta --> fine (ports were actually not fine)
+   kubectl get services -n beta --> fine
+   kubectl  logs -n beta mysql --> fine
+   kubectl  logs -n beta webapp-mysql-5f5df6f797-szwjf --> code 400, message Bad request version
+   kubectl describe service -n beta mysql-service --> wrong ports
+   kubectl edit service -n beta mysql-service --> change port to 3306
+
+Troubleshooting Test 3: The same 2 tier application is deployed in the gamma namespace. It must display a green web page on success. Click on the app tab at the top of your terminal to view your application. It is currently failed. Troubleshoot and fix the issue.
+Stick to the given architecture. Use the same names and port numbers as given in the below architecture diagram. Feel free to edit, delete or recreate objects as necessary.
+   kubectl get pods -n gamma --> fine
+   kubectl get services -n gamma --> fine
+   kubectl describe service -n beta mysql-service
+   kubectl  logs -n gamma mysql --> fine
+   kubectl  logs -n gamma webapp-mysql-5f5df6f797-szwjf --> code 400, message Bad request version
+   kubectl describe service -n gamma mysql-service --> selector seems to be false
+   kubectl edit service -n gamma mysql-service --> change name to mysql
+
+Troubleshooting Test 4: The same 2 tier application is deployed in the delta namespace. It must display a green web page on success. Click on the app tab at the top of your terminal to view your application. It is currently failed. Troubleshoot and fix the issue.
+Stick to the given architecture. Use the same names and port numbers as given in the below architecture diagram. Feel free to edit, delete or recreate objects as necessary.
+   Access denied for user 'sql-user'@'10.32.0.3' (using password: YES)
+   kubectl describe pods -n delta webapp-mysql-67444d8f65-bntjm --> wrong db_user selected
+   kubectl edit pod -n delta webapp-mysql-67444d8f65-bntjm --> change db_user to root
+   kubectl delete pod -n delta webapp-mysql-67444d8f65-bntjm
+   kubectl create -f /tmp/kubectl-edit-o5n00.yaml
+   --> seems not to work
+   kubectl get deployments -n delta
+   kubectl edit deployments -n delta webapp-mysql --> change db-user to root
+
+Troubleshooting Test 5: The same 2 tier application is deployed in the epsilon namespace. It must display a green web page on success. Click on the app tab at the top of your terminal to view your application. It is currently failed. Troubleshoot and fix the issue.
+Stick to the given architecture. Use the same names and port numbers as given in the below architecture diagram. Feel free to edit, delete or recreate objects as necessary
+   kubectl describe deployments -n epsilon webapp-mysql --> change user to root again
+   kubectl get services -o wide -n epsilon --> seems fine
+   kubectl get pods -o wide -n epsilon --> fine
+   kubectl describe pod -n epsilon mysql --> password is false
+   kubectl edit pod -n epsilon mysql --> change password
+   kubectl delete pod -n epsilon mysql
+   kubectl create -f /tmp/kubectl-edit-zchjy.yaml
+
+Troubleshooting Test 6: The same 2 tier application is deployed in the zeta namespace. It must display a green web page on success. Click on the app tab at the top of your terminal to view your application. It is currently failed. Troubleshoot and fix the issue.
+Stick to the given architecture. Use the same names and port numbers as given in the below architecture diagram. Feel free to edit, delete or recreate objects as necessary
+   kubectl get pods -o wide -n zeta --> seems fine
+   kubectl get services -o wide -n zeta --> port of web-service wrong
+   kubectl edit service -n zeta web-service --> change port to 30081
