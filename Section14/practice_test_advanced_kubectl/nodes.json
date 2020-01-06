@@ -1,0 +1,764 @@
+{
+   "apiVersion": "v1",
+   "items": [
+       {
+           "apiVersion": "v1",
+           "kind": "Node",
+           "metadata": {
+               "annotations": {
+                   "kubeadm.alpha.kubernetes.io/cri-socket": "/var/run/dockershim.sock",
+                   "node.alpha.kubernetes.io/ttl": "0",
+                   "volumes.kubernetes.io/controller-managed-attach-detach": "true"
+               },
+               "creationTimestamp": "2020-01-06T10:07:15Z",
+               "labels": {
+                   "beta.kubernetes.io/arch": "amd64",
+                   "beta.kubernetes.io/os": "linux",
+                   "kubernetes.io/hostname": "master",
+                   "node-role.kubernetes.io/master": ""
+               },
+               "name": "master",
+               "namespace": "",
+               "resourceVersion": "897",
+               "selfLink": "/api/v1/nodes/master",
+               "uid": "505f45bc-306c-11ea-b858-0242ac110009"
+           },
+           "spec": {
+               "taints": [
+                   {
+                       "effect": "NoSchedule",
+                       "key": "node-role.kubernetes.io/master"
+                   }
+               ]
+           },
+           "status": {
+               "addresses": [
+                   {
+                       "address": "172.17.0.9",
+                       "type": "InternalIP"
+                   },
+                   {
+                       "address": "master",
+                       "type": "Hostname"
+                   }
+               ],
+               "allocatable": {
+                   "cpu": "4",
+                   "ephemeral-storage": "89032026784",
+                   "hugepages-1Gi": "0",
+                   "hugepages-2Mi": "0",
+                   "memory": "1945476Ki",
+                   "pods": "110"
+               },
+               "capacity": {
+                   "cpu": "4",
+                   "ephemeral-storage": "96605932Ki",
+                   "hugepages-1Gi": "0",
+                   "hugepages-2Mi": "0",
+                   "memory": "2047876Ki",
+                   "pods": "110"
+               },
+               "conditions": [
+                   {
+                       "lastHeartbeatTime": "2020-01-06T10:12:46Z",
+                       "lastTransitionTime": "2020-01-06T10:07:11Z",
+                       "message": "kubelet has sufficient disk space available",
+                       "reason": "KubeletHasSufficientDisk",
+                       "status": "False",
+                       "type": "OutOfDisk"
+                   },
+                   {
+                       "lastHeartbeatTime": "2020-01-06T10:12:46Z",
+                       "lastTransitionTime": "2020-01-06T10:07:11Z",
+                       "message": "kubelet has sufficient memory available",
+                       "reason": "KubeletHasSufficientMemory",
+                       "status": "False",
+                       "type": "MemoryPressure"
+                   },
+                   {
+                       "lastHeartbeatTime": "2020-01-06T10:12:46Z",
+                       "lastTransitionTime": "2020-01-06T10:07:11Z",
+                       "message": "kubelet has no disk pressure",
+                       "reason": "KubeletHasNoDiskPressure",
+                       "status": "False",
+                       "type": "DiskPressure"
+                   },
+                   {
+                       "lastHeartbeatTime": "2020-01-06T10:12:46Z",
+                       "lastTransitionTime": "2020-01-06T10:07:11Z",
+                       "message": "kubelet has sufficient PID available",
+                       "reason": "KubeletHasSufficientPID",
+                       "status": "False",
+                       "type": "PIDPressure"
+                   },
+                   {
+                       "lastHeartbeatTime": "2020-01-06T10:12:46Z",
+                       "lastTransitionTime": "2020-01-06T10:08:05Z",
+                       "message": "kubelet is posting ready status. AppArmor enabled",
+                       "reason": "KubeletReady",
+                       "status": "True",
+                       "type": "Ready"
+                   }
+               ],
+               "daemonEndpoints": {
+                   "kubeletEndpoint": {
+                       "Port": 10250
+                   }
+               },
+               "images": [
+                   {
+                       "names": [
+                           "k8s.gcr.io/etcd-amd64@sha256:b960569ade5f37205a033dcdc3191fe99dc95b15c6795a6282859070ec2c6124",
+                           "k8s.gcr.io/etcd-amd64:3.2.18"
+                       ],
+                       "sizeBytes": 218904307
+                   },
+                   {
+                       "names": [
+                           "k8s.gcr.io/kube-apiserver-amd64@sha256:956bea8c139620c9fc823fb81ff9b5647582b53bd33904302987d56ab24fc187",
+                           "k8s.gcr.io/kube-apiserver-amd64:v1.11.3"
+                       ],
+                       "sizeBytes": 186676561
+                   },
+                   {
+                       "names": [
+                           "k8s.gcr.io/kube-controller-manager-amd64@sha256:a6d115bb1c0116036ac6e6e4d504665bc48879c421a450566c38b3b726f0a123",
+                           "k8s.gcr.io/kube-controller-manager-amd64:v1.11.3"
+                       ],
+                       "sizeBytes": 155275795
+                   },
+                   {
+                       "names": [
+                           "docker@sha256:f7211e1779c82e3a50d0d6f165e83f3e2be217a234b0181d5e8bee411d8fcc5f",
+                           "docker:latest"
+                       ],
+                       "sizeBytes": 152001689
+                   },
+                   {
+                       "names": [
+                           "quay.io/weaveworks/flux@sha256:aad949d7190a71e0405ec1378e8949ee6c9629512f6669b51077cdfb44419554",
+                           "quay.io/weaveworks/flux:1.7.1"
+                       ],
+                       "sizeBytes": 133111448
+                   },
+                   {
+                       "names": [
+                           "k8s.gcr.io/kubernetes-dashboard-amd64@sha256:1d2e1229a918f4bc38b5a3f9f5f11302b3e71f8397b492afac7f273a0008776a",
+                           "k8s.gcr.io/kubernetes-dashboard-amd64:v1.10.0"
+                       ],
+                       "sizeBytes": 122460923
+                   },
+                   {
+                       "names": [
+                           "prom/prometheus@sha256:129e16b08818a47259d972767fd834d84fb70ca11b423cc9976c9bce9b40c58f",
+                           "prom/prometheus:v2.2.1"
+                       ],
+                       "sizeBytes": 113268574
+                   },
+                   {
+                       "names": [
+                           "gcr.io/google_containers/kubernetes-dashboard-amd64@sha256:4ad64dfa7159ff4a99a65a4f96432f2fdb6542857cf230858b3159017833a882",
+                           "gcr.io/google_containers/kubernetes-dashboard-amd64:v1.6.0"
+                       ],
+                       "sizeBytes": 108572029
+                   },
+                   {
+                       "names": [
+                           "k8s.gcr.io/kube-proxy-amd64@sha256:c900e2fd92f65fd5158c1fd3e2f03245c4eed3a1a8c90da1821008a390a2a878",
+                           "k8s.gcr.io/kube-proxy-amd64:v1.11.3"
+                       ],
+                       "sizeBytes": 97783838
+                   },
+                   {
+                       "names": [
+                           "weaveworks/weave-kube@sha256:801f6e87b6d0f87d1391d8d7e5eeb5f9fbee81012dbcbf488809f48ef3479ce2",
+                           "weaveworks/weave-kube:2.2.1"
+                       ],
+                       "sizeBytes": 93824428
+                   },
+                   {
+                       "names": [
+                           "prom/prometheus@sha256:4bf7ad89d607dd8de2f0cff1df554269bff19fe0f18ee482660f7a5dc685d549",
+                           "prom/prometheus:v1.7.1"
+                       ],
+                       "sizeBytes": 74493949
+                   },
+                   {
+                       "names": [
+                           "python@sha256:3feaa2b9765bcd50a30ff539cc88a3b393834691368b6804fd0d1a4f2483b95d",
+                           "python:3.6-alpine3.7"
+                       ],
+                       "sizeBytes": 73920310
+                   },
+                   {
+                       "names": [
+                           "gcr.io/kubernetes-helm/tiller@sha256:2a3dd484ecfcf9343994e0f6c2af0a6faf1af7f7e499905793643f91e90edcb3",
+                           "gcr.io/kubernetes-helm/tiller:v2.10.0"
+                       ],
+                       "sizeBytes": 68943449
+                   },
+                   {
+                       "names": [
+                           "node@sha256:9cd67a00ed111285460a83847720132204185e9321ec35dacec0d8b9bf674adf",
+                           "node:9.4-alpine"
+                       ],
+                       "sizeBytes": 68023408
+                   },
+                   {
+                       "names": [
+                           "weaveworks/scope@sha256:651cc9ac380803a83e19af40943ebece696448b053d3f80f3fd86b430e558606",
+                           "weaveworks/scope:1.9.1"
+                       ],
+                       "sizeBytes": 68005975
+                   },
+                   {
+                       "names": [
+                           "k8s.gcr.io/kube-scheduler-amd64@sha256:ba67d94fff4057c8af899d6395359393783d846c88d868728b8fd26bafb05e4e",
+                           "k8s.gcr.io/kube-scheduler-amd64:v1.11.3"
+                       ],
+                       "sizeBytes": 56799644
+                   },
+                   {
+                       "names": [
+                           "k8s.gcr.io/k8s-dns-kube-dns-amd64@sha256:6d8e0da4fb46e9ea2034a3f4cab0e095618a2ead78720c12e791342738e5f85d",
+                           "k8s.gcr.io/k8s-dns-kube-dns-amd64:1.14.8"
+                       ],
+                       "sizeBytes": 50452419
+                   },
+                   {
+                       "names": [
+                           "weaveworks/weave-npc@sha256:6a39dfa58f1a3a0afc103ab751fd75b26dd6cc591e93c4f738675f50f59b391a",
+                           "weaveworks/weave-npc:2.2.1"
+                       ],
+                       "sizeBytes": 46554254
+                   },
+                   {
+                       "names": [
+                           "k8s.gcr.io/coredns@sha256:db2bf53126ed1c761d5a41f24a1b82a461c85f736ff6e90542e9522be4757848",
+                           "k8s.gcr.io/coredns:1.1.3"
+                       ],
+                       "sizeBytes": 45564078
+                   },
+                   {
+                       "names": [
+                           "ruby@sha256:5c2c66e70bfbb3f08d67e1335f555ccf69f6e3bcbf418a7b2fe3abf31d330ff2",
+                           "ruby:2.5-alpine3.7"
+                       ],
+                       "sizeBytes": 45263753
+                   },
+                   {
+                       "names": [
+                           "prom/node-exporter@sha256:6965ed8f31c5edba19d269d10238f59624e6b004f650ce925b3408ce222f9e49",
+                           "prom/node-exporter:v0.15.2"
+                       ],
+                       "sizeBytes": 22804969
+                   },
+                   {
+                       "names": [
+                           "prom/node-exporter@sha256:ea8396dd32be6195ef03438b2f459b2e69a88b8fc798c3fc51559f56d4b158fa",
+                           "prom/node-exporter:v0.14.0"
+                       ],
+                       "sizeBytes": 18897129
+                   },
+                   {
+                       "names": [
+                           "alpine@sha256:621c2f39f8133acb8e64023a94dbdf0d5ca81896102b9e57c0dc184cadaf5528",
+                           "alpine:3.8"
+                       ],
+                       "sizeBytes": 4408974
+                   },
+                   {
+                       "names": [
+                           "alpine@sha256:a52b4edb6240d1534d54ee488d7cf15b3778a5cfd0e4161d426c550487cddc5d",
+                           "alpine:3.7"
+                       ],
+                       "sizeBytes": 4202236
+                   },
+                   {
+                       "names": [
+                           "k8s.gcr.io/pause@sha256:f78411e19d84a252e53bff71a4407a5686c46983a2c2eeed83929b888179acea",
+                           "k8s.gcr.io/pause:3.1"
+                       ],
+                       "sizeBytes": 742472
+                   }
+               ],
+               "nodeInfo": {
+                   "architecture": "amd64",
+                   "bootID": "c40576cc-89e7-41ae-8553-59fa6c19ab94",
+                   "containerRuntimeVersion": "docker://1.13.1",
+                   "kernelVersion": "4.4.0-62-generic",
+                   "kubeProxyVersion": "v1.11.3",
+                   "kubeletVersion": "v1.11.3",
+                   "machineID": "e86d7ed4b96794338c2ed29a5bc215ad",
+                   "operatingSystem": "linux",
+                   "osImage": "Ubuntu 16.04.2 LTS",
+                   "systemUUID": "e86d7ed4b96794338c2ed29a5bc215ad"
+               }
+           }
+       },
+       {
+           "apiVersion": "v1",
+           "kind": "Node",
+           "metadata": {
+               "annotations": {
+                   "kubeadm.alpha.kubernetes.io/cri-socket": "/var/run/dockershim.sock",
+                   "node.alpha.kubernetes.io/ttl": "0",
+                   "volumes.kubernetes.io/controller-managed-attach-detach": "true"
+               },
+               "creationTimestamp": "2020-01-06T10:07:28Z",
+               "labels": {
+                   "beta.kubernetes.io/arch": "amd64",
+                   "beta.kubernetes.io/os": "linux",
+                   "kubernetes.io/hostname": "node01"
+               },
+               "name": "node01",
+               "namespace": "",
+               "resourceVersion": "889",
+               "selfLink": "/api/v1/nodes/node01",
+               "uid": "58478152-306c-11ea-b858-0242ac110009"
+           },
+           "spec": {},
+           "status": {
+               "addresses": [
+                   {
+                       "address": "172.17.0.12",
+                       "type": "InternalIP"
+                   },
+                   {
+                       "address": "node01",
+                       "type": "Hostname"
+                   }
+               ],
+               "allocatable": {
+                   "cpu": "4",
+                   "ephemeral-storage": "89032026784",
+                   "hugepages-1Gi": "0",
+                   "hugepages-2Mi": "0",
+                   "memory": "3943804Ki",
+                   "pods": "110"
+               },
+               "capacity": {
+                   "cpu": "4",
+                   "ephemeral-storage": "96605932Ki",
+                   "hugepages-1Gi": "0",
+                   "hugepages-2Mi": "0",
+                   "memory": "4046204Ki",
+                   "pods": "110"
+               },
+               "conditions": [
+                   {
+                       "lastHeartbeatTime": "2020-01-06T10:12:39Z",
+                       "lastTransitionTime": "2020-01-06T10:07:28Z",
+                       "message": "kubelet has sufficient disk space available",
+                       "reason": "KubeletHasSufficientDisk",
+                       "status": "False",
+                       "type": "OutOfDisk"
+                   },
+                   {
+                       "lastHeartbeatTime": "2020-01-06T10:12:39Z",
+                       "lastTransitionTime": "2020-01-06T10:07:28Z",
+                       "message": "kubelet has sufficient memory available",
+                       "reason": "KubeletHasSufficientMemory",
+                       "status": "False",
+                       "type": "MemoryPressure"
+                   },
+                   {
+                       "lastHeartbeatTime": "2020-01-06T10:12:39Z",
+                       "lastTransitionTime": "2020-01-06T10:07:28Z",
+                       "message": "kubelet has no disk pressure",
+                       "reason": "KubeletHasNoDiskPressure",
+                       "status": "False",
+                       "type": "DiskPressure"
+                   },
+                   {
+                       "lastHeartbeatTime": "2020-01-06T10:12:39Z",
+                       "lastTransitionTime": "2020-01-06T10:07:28Z",
+                       "message": "kubelet has sufficient PID available",
+                       "reason": "KubeletHasSufficientPID",
+                       "status": "False",
+                       "type": "PIDPressure"
+                   },
+                   {
+                       "lastHeartbeatTime": "2020-01-06T10:12:39Z",
+                       "lastTransitionTime": "2020-01-06T10:08:08Z",
+                       "message": "kubelet is posting ready status. AppArmor enabled",
+                       "reason": "KubeletReady",
+                       "status": "True",
+                       "type": "Ready"
+                   }
+               ],
+               "daemonEndpoints": {
+                   "kubeletEndpoint": {
+                       "Port": 10250
+                   }
+               },
+               "images": [
+                   {
+                       "names": [
+                           "portworx/px-enterprise@sha256:f2ef7bc30d567e9a8291ba0473b11433c62637681f4029c60a42f7eb2c3b1fcb",
+                           "portworx/px-enterprise:1.5.1"
+                       ],
+                       "sizeBytes": 2077639723
+                   },
+                   {
+                       "names": [
+                           "portworx/px-enterprise@sha256:08f90819d4e0122bc2a472513bb3b76748a1746ab98ce7bc181012bb2958db72",
+                           "portworx/px-enterprise:1.4.2.2"
+                       ],
+                       "sizeBytes": 2041705061
+                   },
+                   {
+                       "names": [
+                           "microsoft/mssql-server-linux@sha256:14d1c4423f9686cbfd12f574c5bcc47d8e452e1353c45a7f71116243e8bb47f4",
+                           "microsoft/mssql-server-linux:latest"
+                       ],
+                       "sizeBytes": 1445126549
+                   },
+                   {
+                       "names": [
+                           "docker.elastic.co/kibana/kibana@sha256:2da2e99561d8df1d2863d7b68a12c0601ed9f65d760d114224241512ce1a14ea",
+                           "docker.elastic.co/kibana/kibana:6.2.4"
+                       ],
+                       "sizeBytes": 933247846
+                   },
+                   {
+                       "names": [
+                           "weaveworksdemos/user-db@sha256:b43f0f8a76e0c908805fcec74d1ad7f4af4d93c4612632bd6dc20a87508e0b68",
+                           "weaveworksdemos/user-db:0.4.0"
+                       ],
+                       "sizeBytes": 716855075
+                   },
+                   {
+                       "names": [
+                           "quay.io/coreos/hyperkube@sha256:699fc03fccb1c4662fee9d996cf30106aea55a6f594d16c1504cc7334dadcee4",
+                           "quay.io/coreos/hyperkube:v1.7.6_coreos.0"
+                       ],
+                       "sizeBytes": 699395414
+                   },
+                   {
+                       "names": [
+                           "istio/examples-bookinfo-reviews-v2@sha256:d2483dcb235b27309680177726e4e86905d66e47facaf1d57ed590b2bf95c8ad",
+                           "istio/examples-bookinfo-reviews-v2:1.8.0"
+                       ],
+                       "sizeBytes": 525046218
+                   },
+                   {
+                       "names": [
+                           "istio/examples-bookinfo-reviews-v3@sha256:8c0385f0ca799e655d8770b52cb4618ba54e8966a0734ab1aeb6e8b14e171a3b",
+                           "istio/examples-bookinfo-reviews-v3:1.8.0"
+                       ],
+                       "sizeBytes": 525046218
+                   },
+                   {
+                       "names": [
+                           "istio/examples-bookinfo-reviews-v1@sha256:920d46b3c526376b28b90d0e895ca7682d36132e6338301fcbcd567ef81bde05",
+                           "istio/examples-bookinfo-reviews-v1:1.8.0"
+                       ],
+                       "sizeBytes": 525046218
+                   },
+                   {
+                       "names": [
+                           "docker.elastic.co/elasticsearch/elasticsearch@sha256:9ae20c753f18e27d1dd167b8675ba95de20b1f1ae5999aae5077fa2daf38919e",
+                           "docker.elastic.co/elasticsearch/elasticsearch:6.2.4"
+                       ],
+                       "sizeBytes": 514505674
+                   },
+                   {
+                       "names": [
+                           "gcr.io/google_samples/gb-frontend@sha256:d44e7d7491a537f822e7fe8615437e4a8a08f3a7a1d7d4cb9066b92f7556ba6d",
+                           "gcr.io/google_samples/gb-frontend:v4"
+                       ],
+                       "sizeBytes": 512107183
+                   },
+                   {
+                       "names": [
+                           "gcr.io/google_samples/gb-frontend@sha256:50b22839aaf6a18586d6751e8963cf684c27b9873ca926df22cdf88ed4452615",
+                           "gcr.io/google_samples/gb-frontend:v3"
+                       ],
+                       "sizeBytes": 509653334
+                   },
+                   {
+                       "names": [
+                           "openzipkin/zipkin-mysql@sha256:fc52a9c1c7d5f73c74c87aab11b17e43bc728449116d2486c0fce66baeea5786",
+                           "openzipkin/zipkin-mysql:1.20.0"
+                       ],
+                       "sizeBytes": 441939477
+                   },
+                   {
+                       "names": [
+                           "k8s.gcr.io/redis@sha256:f066bcf26497fbc55b9bf0769cb13a35c0afa2aa42e737cc46b7fb04b23a2f25",
+                           "k8s.gcr.io/redis:e2e"
+                       ],
+                       "sizeBytes": 418929769
+                   },
+                   {
+                       "names": [
+                           "bitnami/mongodb@sha256:d49ef0eb5e8e0bf9eeef25734822a63783ec052f60b01a7fd9869cd72773894f",
+                           "bitnami/mongodb:3.7.3"
+                       ],
+                       "sizeBytes": 407949591
+                   },
+                   {
+                       "names": [
+                           "weaveworksdemos/catalogue-db@sha256:7ba74ec9adf88f6625b8d85d3323d1ee5232b39877e1590021ea485cf9457251",
+                           "weaveworksdemos/catalogue-db:0.3.0"
+                       ],
+                       "sizeBytes": 400136112
+                   },
+                   {
+                       "names": [
+                           "gcr.io/istio-release/proxyv2@sha256:77915a0b8c88cce11f04caf88c9ee30300d5ba1fe13146ad5ece9abf8826204c",
+                           "gcr.io/istio-release/proxyv2:1.0.0"
+                       ],
+                       "sizeBytes": 351025559
+                   },
+                   {
+                       "names": [
+                           "mongo@sha256:6e8000e4efe09ec67328a16cecffff18e83fc0d20fa8f6b03b7396cf75b389e4",
+                           "mongo:3.2.11"
+                       ],
+                       "sizeBytes": 342735413
+                   },
+                   {
+                       "names": [
+                           "docker.elastic.co/beats/filebeat@sha256:1ab075d016257ee7990f962a11099284e58b00f3d474f042c5d174fd48809eaa",
+                           "docker.elastic.co/beats/filebeat:6.2.4"
+                       ],
+                       "sizeBytes": 318649092
+                   },
+                   {
+                       "names": [
+                           "gcr.io/istio-release/grafana@sha256:2d8f6615009face79acc0f4868eb2f3d769465bbd5957c4bce5d498fc512afbe",
+                           "gcr.io/istio-release/grafana:1.0.0"
+                       ],
+                       "sizeBytes": 301415612
+                   },
+                   {
+                       "names": [
+                           "gcr.io/istio-release/pilot@sha256:db61fb30f321d28c57452bd3fa4ec1592f3c89f5e1d1dc2eb6ef2289c6dd097d",
+                           "gcr.io/istio-release/pilot:1.0.0"
+                       ],
+                       "sizeBytes": 289304760
+                   },
+                   {
+                       "names": [
+                           "mysql@sha256:4c44f46efaff3ebe7cdc7b35a616c77aa003dc5de4b26c80d0ccae1f9db4a372",
+                           "mysql:5.6"
+                       ],
+                       "sizeBytes": 256038639
+                   },
+                   {
+                       "names": [
+                           "istio/examples-bookinfo-details-v1@sha256:73e1de909cd387cf377bb51ddd90167d0f44cf0659746d1d0e50276e8f1c9df3",
+                           "istio/examples-bookinfo-details-v1:1.8.0"
+                       ],
+                       "sizeBytes": 253808639
+                   },
+                   {
+                       "names": [
+                           "k8s.gcr.io/etcd-amd64@sha256:b960569ade5f37205a033dcdc3191fe99dc95b15c6795a6282859070ec2c6124",
+                           "k8s.gcr.io/etcd-amd64:3.2.18"
+                       ],
+                       "sizeBytes": 218904307
+                   },
+                   {
+                       "names": [
+                           "istio/examples-bookinfo-ratings-v1@sha256:f84302e53e62a8a12510c7f8f437a7a34949be3dfb37f4eb9d054a76436fa4d7",
+                           "istio/examples-bookinfo-ratings-v1:1.8.0"
+                       ],
+                       "sizeBytes": 217896964
+                   },
+                   {
+                       "names": [
+                           "openzipkin/zipkin-dependencies@sha256:1cdaf6f502f06a442fd84614d727bb870c1dfe7129d96c674331e7fd0149462e",
+                           "openzipkin/zipkin-dependencies:1.4.0"
+                       ],
+                       "sizeBytes": 212773974
+                   },
+                   {
+                       "names": [
+                           "weaveworksdemos/shipping@sha256:983305c948fded487f4a4acdeab5f898e89d577b4bc1ca3de7750076469ccad4",
+                           "weaveworksdemos/shipping:0.4.8"
+                       ],
+                       "sizeBytes": 198588019
+                   },
+                   {
+                       "names": [
+                           "weaveworksdemos/orders@sha256:b622e40e83433baf6374f15e076b53893f79958640fc6667dff597622eff03b9",
+                           "weaveworksdemos/orders:0.4.7"
+                       ],
+                       "sizeBytes": 197626559
+                   },
+                   {
+                       "names": [
+                           "weaveworksdemos/carts@sha256:434d2f5a6e0e8beef1f253fe96f45b8437a703125fc003434c5282ecf8969a4f",
+                           "weaveworksdemos/carts:0.4.8"
+                       ],
+                       "sizeBytes": 197607655
+                   },
+                   {
+                       "names": [
+                           "openzipkin/zipkin@sha256:6ecbee08d36eb1e8c7ee84be5667d145fdc926f77460d43e127ac66184d37cf3",
+                           "openzipkin/zipkin:1.20"
+                       ],
+                       "sizeBytes": 188593833
+                   },
+                   {
+                       "names": [
+                           "k8s.gcr.io/kube-apiserver-amd64@sha256:956bea8c139620c9fc823fb81ff9b5647582b53bd33904302987d56ab24fc187",
+                           "k8s.gcr.io/kube-apiserver-amd64:v1.11.3"
+                       ],
+                       "sizeBytes": 186676561
+                   },
+                   {
+                       "names": [
+                           "weaveworksdemos/queue-master@sha256:6292d3095f4c7aeed8d863527f8ef6d7a75d3128f20fc61e57f398c100142712",
+                           "weaveworksdemos/queue-master:0.3.1"
+                       ],
+                       "sizeBytes": 178484876
+                   },
+                   {
+                       "names": [
+                           "k8s.gcr.io/kube-controller-manager-amd64@sha256:a6d115bb1c0116036ac6e6e4d504665bc48879c421a450566c38b3b726f0a123",
+                           "k8s.gcr.io/kube-controller-manager-amd64:v1.11.3"
+                       ],
+                       "sizeBytes": 155275795
+                   },
+                   {
+                       "names": [
+                           "istio/examples-bookinfo-productpage-v1@sha256:ed65a39f8b3ec5a7c7973c8e0861b89465998a0617bc0d0c76ce0a97080694a9",
+                           "istio/examples-bookinfo-productpage-v1:1.8.0"
+                       ],
+                       "sizeBytes": 143937945
+                   },
+                   {
+                       "names": [
+                           "quay.io/weaveworks/flux@sha256:59eca14c77011dcc3f7b5227261a2373154e69be3a8c23da9c93cae96c8f7c35",
+                           "quay.io/weaveworks/flux:1.7.0"
+                       ],
+                       "sizeBytes": 133111365
+                   },
+                   {
+                       "names": [
+                           "rabbitmq@sha256:79a0c336387eeb7cdd8eca037e2a71ea43cd942db08a2858e6482929a74d2998",
+                           "rabbitmq:3"
+                       ],
+                       "sizeBytes": 124809002
+                   },
+                   {
+                       "names": [
+                           "openstorage/stork@sha256:e8690957487bb1ebde2e952d1f1000897a84340b3813dd26cc8e03a421394ba3",
+                           "openstorage/stork:1.1.2"
+                       ],
+                       "sizeBytes": 122591935
+                   },
+                   {
+                       "names": [
+                           "openstorage/stork@sha256:b4c8d18384a6aa5c4484a1f6f3f0df009328b9360d60a4bdd795d9806d16a43e",
+                           "openstorage/stork:1.1.3"
+                       ],
+                       "sizeBytes": 122437369
+                   },
+                   {
+                       "names": [
+                           "weaveworksdemos/front-end@sha256:26a2d9b6b291dee2dca32fca3f5bff6c2fa07bb5954359afcbc8001cc70eac71",
+                           "weaveworksdemos/front-end:0.3.12"
+                       ],
+                       "sizeBytes": 119793076
+                   },
+                   {
+                       "names": [
+                           "portworx/oci-monitor@sha256:a962c8cffe417526b6537add791d89613dd549461dd86262db44cd4a9c0373af",
+                           "portworx/oci-monitor:1.5.1"
+                       ],
+                       "sizeBytes": 119452196
+                   },
+                   {
+                       "names": [
+                           "portworx/oci-monitor@sha256:85d7b93de62924dcc1cb58f4a1b60da28b9255abfa49e06c5669a38ed28ba603",
+                           "portworx/oci-monitor:1.4.2.2"
+                       ],
+                       "sizeBytes": 119448100
+                   },
+                   {
+                       "names": [
+                           "prom/prometheus@sha256:0283ae2509e1ccc71830edf382713cc3906aa55ca9418c50911854223829bf0b",
+                           "prom/prometheus:v2.3.1"
+                       ],
+                       "sizeBytes": 118802648
+                   },
+                   {
+                       "names": [
+                           "gcr.io/istio-release/proxy_init@sha256:345c40053b53b7cc70d12fb94379e5aa0befd979a99db80833cde671bd1f9fad",
+                           "gcr.io/istio-release/proxy_init:1.0.0"
+                       ],
+                       "sizeBytes": 118767394
+                   },
+                   {
+                       "names": [
+                           "prom/prometheus@sha256:129e16b08818a47259d972767fd834d84fb70ca11b423cc9976c9bce9b40c58f",
+                           "prom/prometheus:v2.2.1"
+                       ],
+                       "sizeBytes": 113268574
+                   },
+                   {
+                       "names": [
+                           "gcr.io/google_samples/gb-redisslave@sha256:90f62695e641e1a27d1a5e0bbb8b622205a48e18311b51b0da419ffad24b9016",
+                           "gcr.io/google_samples/gb-redisslave:v1"
+                       ],
+                       "sizeBytes": 109462535
+                   },
+                   {
+                       "names": [
+                           "k8s.gcr.io/kube-proxy-amd64@sha256:c900e2fd92f65fd5158c1fd3e2f03245c4eed3a1a8c90da1821008a390a2a878",
+                           "k8s.gcr.io/kube-proxy-amd64:v1.11.3"
+                       ],
+                       "sizeBytes": 97783838
+                   },
+                   {
+                       "names": [
+                           "front-end:red-buttons"
+                       ],
+                       "sizeBytes": 95609971
+                   },
+                   {
+                       "names": [
+                           "front-end:blue-buttons"
+                       ],
+                       "sizeBytes": 95599726
+                   },
+                   {
+                       "names": [
+                           "registry.test.training.katacoda.com:4567/root/front-end:fddb7ce656e69b17812ae007b5209287c0080f23"
+                       ],
+                       "sizeBytes": 95578061
+                   },
+                   {
+                       "names": [
+                           "weaveworks/weave-kube@sha256:801f6e87b6d0f87d1391d8d7e5eeb5f9fbee81012dbcbf488809f48ef3479ce2",
+                           "weaveworks/weave-kube:2.2.1"
+                       ],
+                       "sizeBytes": 93824428
+                   }
+               ],
+               "nodeInfo": {
+                   "architecture": "amd64",
+                   "bootID": "80b9e4f1-814c-4d8d-9ae2-02d8ea638a9e",
+                   "containerRuntimeVersion": "docker://1.13.1",
+                   "kernelVersion": "4.4.0-62-generic",
+                   "kubeProxyVersion": "v1.11.3",
+                   "kubeletVersion": "v1.11.3",
+                   "machineID": "cdfa9c7072641af6ee5f3df35e130688",
+                   "operatingSystem": "linux",
+                   "osImage": "Ubuntu 16.04.2 LTS",
+                   "systemUUID": "cdfa9c7072641af6ee5f3df35e130688"
+               }
+           }
+       }
+   ],
+   "kind": "List",
+   "metadata": {
+       "resourceVersion": "",
+       "selfLink": ""
+   }
+}
